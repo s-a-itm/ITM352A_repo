@@ -1,0 +1,33 @@
+/* General */
+body {
+    width: 800px;
+    margin: 0 auto;
+    background: url("/SmartPhoneProducts1/images/phone_globe.jpg") no-repeat center;
+    color: white;
+}
+
+/* Typography */
+h1, h2 {
+    text-align: center;
+}
+
+/* Block Styling */
+.main {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    background: url("/SmartPhoneProducts1/images/phone_globe.jpg") no-repeat center;
+    color: white;
+}
+
+/* Styling the products display */
+.item {
+    width: 200px;
+    height: 200px;
+}
+
+/* Div children of body */
+body > div {
+    border: 5px solid black;
+    display: flex;
+}
