@@ -5,19 +5,21 @@
         Hits:<span id="hits_span">0</span>
         Spins:<span id="spins_span">0</span>
     </p>
-    <link rel="stylesheet" type="text/css" href="lab4.css">
+    <link rel="stylesheet" type="text/css" href="products-style2.css">
     <script>
-        let store_name="Sal's Phone Store"
-        hits_span.innerHTML = hits; 
-        spins_span.innerHTML = spins;
+        const store_name="Sal";
     </script>
 </head>
-<body>
+<body onload="hits_span.innerHTML = hits; spins_span.innerHTML = spins;">
+    
     <h1>
-        <script>
-            document.write(store_name + "'s Smart Phone Store");
-        </script> 
-    </h1>
+        <Script>
+            document.write(store_name + "'s Used Smart Phone Store");
+        </Script>
+        
+        </h1>
+
+    
     <div>
         <main class="main">
             <section class="item" onmouseover="changeClassName(this); spins_span.innerHTML = spins++;" onclick="resetClassName(this); hits_span.innerHTML = hits++;">
@@ -25,7 +27,7 @@
                 <p>&dollar;40</p>
                 <img src="images/HTC.jpg" />
             </section>
-            <section class="item" onmouseover="changeClassName(this)" onclick="resetClassName(this)">
+            <section class="item" onmouseover="changeClassName(this); spins_span.innerHTML = spins++;" onclick="resetClassName(this); hits_span.innerHTML = hits++;">
                 <h2>Apple</h2>
                 <p>&dollar;75</p>
                 <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/iphone-3gs.jpg" />
@@ -54,15 +56,17 @@
         function resetClassName(element) {
             element.className = 'item';
         }
+        let hits= 0;
+        let spins=1;
+        hits_span.innerHTML = hits; 
+        spins_span.innerHTML = spins;
     </script>
+</body>
+<footer>
     <h1>
         <script>
-            document.write("Your One Stop for Used Phones - "+store_name+"\'s");
+            document.write("Your one stop shop for used phones - "+store_name+"'s");            
         </script>
     </h1>
-</body>
-<script>
-    let hits=0;
-    let spins=1;
-</script>
+</footer>
 </html>
