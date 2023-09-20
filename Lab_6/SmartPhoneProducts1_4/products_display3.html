@@ -4,29 +4,21 @@
     <p style="text-align: center; font-weight: bold;">
         Hits:<span id="hits_span">0</span>
         Spins:<span id="spins_span">0</span>
-        Hit/Spin:<span id="hit_spin_span">0</span>
+        Hit/Spin:<span id="hit_spin_span">0</span><BR>
+        You win:<span id="win_span">pending...</span>
     </p>
     <link rel="stylesheet" type="text/css" href="products-style2.css">
-    <script>
-        const store_name="Sal";
-    </script>
 </head>
-<body onload="hits_span.innerHTML = hits; spins_span.innerHTML = spins;">
-    
-    <h1>
-        <Script>
-            document.write(store_name + "'s Used Smart Phone Store");
-        </Script>
-        
-        </h1>
+<body>
+    <h1><span id="header_title"></span></h1>
     <div>
         <main class="main">
-            <section class="item" onmouseover="changeClassName(this); spins=spins+1; spins_span.innerHTML = spins; hit_spin_span.innerHTML=Number(hits/spins).toFixed(2)" onclick="resetClassName(this); hits=hits+=2;hits_span.innerHTML = hits; hit_spin_span.innerHTML=Number(hits/spins).toFixed(2)">
+            <section class="item" onmouseover="changeClassName(this); " onclick="resetClassName(this);" >
                 <h2>HTC</h2>
                 <p>&dollar;40</p>
                 <img src="images/HTC.jpg" />
             </section>
-            <section class="item" onmouseover="changeClassName(this); spins_span.innerHTML = spins++;" onclick="resetClassName(this); hits_span.innerHTML = hits++;">
+            <section class="item" onmouseover="changeClassName(this);" onclick="resetClassName(this);">
                 <h2>Apple</h2>
                 <p>&dollar;75</p>
                 <img src="http://dport96.github.io/ITM352/morea/080.flow-control-II/iphone-3gs.jpg" />
@@ -48,24 +40,9 @@
             </section>
         </main>
     </div>
-    <script>
-        function changeClassName(element) {
-            element.className = 'item rotate';
-        }
-        function resetClassName(element) {
-            element.className = 'item';
-        }
-        let hits= 0;
-        let spins=0;
-        hits_span.innerHTML = hits; 
-        spins_span.innerHTML = spins;
-    </script>
 </body>
 <footer>
-    <h1>
-        <script>
-            document.write("Your one stop shop for used phones - "+store_name+"'s");            
-        </script>
-    </h1>
+    <h1><span id="footer_title"></span></h1>
 </footer>
+    <script src="products_display.js"></script>   
 </html>
