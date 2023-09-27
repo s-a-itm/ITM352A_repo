@@ -1,13 +1,9 @@
-// invoice.js
-// Product Data
+// Product Data and calculating extended-price (aka item_total)
 let item1 = 'Apple Watch Ultra screen protector';
 let quantity1 = 2;
 let price1 = 6.23;
 let extended_price1 = quantity1 * price1;
 
-// Define additional product data and calculate extended prices for each product (item2, item3, ...).
-
-// Compute extended prices for other products.
 let item2 = 'Apple Watch Ultra extra band';
 let quantity2 = 1;
 let price2 = 22.64;
