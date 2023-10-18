@@ -1,4 +1,5 @@
-// invoice3.js
+// invoice3a.js
+//this is invoice3 without any validation logic... so much simpler compared to with validation
 
 //import data from products.js into this file
 import { itemData, quantity } from './products.js';
