@@ -12,6 +12,8 @@
 
 4. In invoice.js:
    - Define variables for each product (item1, quantity1, price1, etc.).
+   let item1=...;
+   let quantity1= ...;
    - Calculate extended prices for each product (extended_price1, extended_price2, etc.).
    - Calculate the subtotal by adding extended prices.
    - Calculate the tax amount using the tax rate.
