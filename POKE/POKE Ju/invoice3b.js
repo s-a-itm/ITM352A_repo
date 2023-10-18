@@ -56,8 +56,7 @@ function generateItemRows() {
     // Clear the table content
     table.innerHTML = '';
   
-    // Initialize variables to keep track of total and errors
-    let total = 0;
+    // Initialize variable to keep track of errors
     let hasErrors = false;
   
     // Loop through the itemData and quantity arrays
