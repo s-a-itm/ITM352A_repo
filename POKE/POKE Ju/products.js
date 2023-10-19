@@ -2,6 +2,7 @@
 
 // Define the quantities array
 let quantity = [2, "cat", 1.5, -1.5, 0];
+//let quantity = [2, 1, 1, 2, 1];
 
 // Define the item objects (minus image data) with brand and quantity attributes
 let itemData = [
