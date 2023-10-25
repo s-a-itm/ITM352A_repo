@@ -79,3 +79,21 @@ td {
   margin: 10px auto;
   text-align: center;
 }
+
+.purchase-btn {
+  display: block;
+  width: 200px;
+  height: 50px;
+  margin: 20px auto;
+  background-color: #3300ff;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.purchase-btn:hover {
+  background-color: #0056b3;
+}
