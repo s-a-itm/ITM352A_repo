@@ -1,7 +1,21 @@
 // invoice3.js
 
+// Fetch the query string parameters
+const params = new URL(document.location).searchParams;
+// Loop through the expected quantity parameters and update the quantity array
+
+let quantity=[];
+
+for (let i = 0; i < itemData.length; i++) {
+    let quantityValue = params.get(`quantity${i}`);
+    if (quantityValue !== null) {
+        quantity[itemData[i].quantityIndex] = Number(quantityValue);
+    }
+}
+
 //import data from products.js into this file
-import { itemData, quantity } from './products.js';
+//import { itemData, quantity } from './products.js';
+import { itemData } from './products.js';
 
 //initialize variables for subtotal, tax, shipping charge, and total
 let subtotal=0;
@@ -34,18 +48,28 @@ document.getElementById('shipping_cell').innerHTML = '$' +shippingCharge.toFixed
 
 //there are many ways to code the validateQuantity function... here is one.
 function validateQuantity(quantity) {
-    if (isNaN(quantity)) {
-      return "Not a number";
-    } else if (quantity < 0 && !Number.isInteger(quantity)) {
-      return "Negative inventory and not an Integer";
-    } else if (quantity < 0) {
-      return "Negative inventory";
-    } else if (!Number.isInteger(quantity)) {
-      return "Not an Integer";
-    } else {
-      return ""; // No errors
-    }
+  let errorMessage = "";
+
+  switch (true) {
+      case isNaN(quantity):
+          errorMessage = "Not a number. Please enter a non-negative quantity to order.";
+          break;
+      case quantity < 0 && !Number.isInteger(quantity):
+          errorMessage = "Negative inventory and not an Integer. Please enter a non-negative quantity to order.";
+          break;
+      case quantity < 0:
+          errorMessage = "Negative inventory. Please enter a non-negative quantity to order.";
+          break;
+      case !Number.isInteger(quantity):
+          errorMessage = "Not an Integer. Please enter a non-negative quantity to order.";
+          break;
+      default:
+          errorMessage = ""; // No errors
+          break;
   }
+
+  return errorMessage;
+}
   
 
   // Function to generate item rows and apply quantity validation
