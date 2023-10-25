@@ -1,17 +1,4 @@
-function updateQuantityMessage(textbox) {
-    let quantityMessage=document.getElementById('qty_textbox_message');
-
-    //validate the quentity entered
-    let validationMessage = validateQuantity(Number(textbox.value));
-
-    //if there are validation errors, display error message
-    if (validationMessage !=="") {
-        quantityMessage.innerHTML = validationMessage;
-    } else {
-        quantityMessage.innerHTML = textbox.value;
-    }
-
-}
+//order4.js
 function validateQuantity(quantity) {
     let errorMessage = "";
 
@@ -19,10 +6,10 @@ function validateQuantity(quantity) {
         case isNaN(quantity):
             errorMessage = "Not a number. Please enter a non-negative quantity to order.";
             break;
-        case quantity <= 0 && !Number.isInteger(quantity):
+        case quantity < 0 && !Number.isInteger(quantity):
             errorMessage = "Negative inventory and not an Integer. Please enter a non-negative quantity to order.";
             break;
-        case quantity <= 0:
+        case quantity < 0:
             errorMessage = "Negative inventory. Please enter a non-negative quantity to order.";
             break;
         case !Number.isInteger(quantity):
@@ -36,17 +23,30 @@ function validateQuantity(quantity) {
     return errorMessage;
 }
 
-function displayPurchase() {
-    let quantity = Number(document.getElementById('qty_textbox').value);
+function processOrder() {
+    
+    //let params= (new URL(document.location)).searchParams;
+    //let quantity = Number(params.get("qty_textbox"));
 
+    let quantityTextbox = document.querySelector('input[name="qty_textbox"]');
+    let quantity = Number(quantityTextbox.value);
     let validationMessage = validateQuantity(quantity);
 
-    if (validationMessage == "") {
+    if (validationMessage === "") {
         let message = `Thank you for ordering ${quantity} things!`;
+        
+        //rewrites the DOM page 
+        innerHTML = message;
         document.body.innerHTML = message;
-    } else {
-        alert(validationMessage + " Please enter a positive integer for quantity.")
-        document.getElementById('qty_textbox').value="";
-    }
 
+        // Stop the form submission (preventing page reload)
+        return false;
+    } else {
+        // Clear the quantity textbox
+        //quantityTextbox.value = "";
+        
+        // Display the validation error message on the page
+        document.getElementById('purchaseResult').innerHTML = validationMessage;
+        return false;
+    }
 }

@@ -1,3 +1,4 @@
+
 <!--order_page4.html-->
 <!DOCTYPE html>
 <html>
@@ -5,16 +6,18 @@
     <title>Order Page</title>
 </head>
 <body>
-    <form name="qty_form" action="" method="GET" onsubmit="return formSubmission()">
+    <!--note the addtion of processOrder function-->
+    <form name="qty_form" action="" method="GET" onsubmit="return processOrder()">
         <label for="qty_textbox">Quantity Desired:</label>
         <input type="text" name="qty_textbox">
         <span id="qty_textbox_message">Enter a quantity</span>
 
-        <br>
+        <br><br>
         <input type="submit" value="Purchase">
     </form>
-    <br><br>
-    <div id="invalidQuantity"></div>
+    
+    <!--added this div for the result message if you don't want a new page-->
+    <div id="purchaseResult"></div>
 
     <script src="order4.js"></script>
 </body>
