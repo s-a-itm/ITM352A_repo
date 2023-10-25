@@ -3,6 +3,17 @@
 //import data from products.js into this file
 import { itemData, quantity } from './products.js';
 
+// Fetch the query string parameters
+const params = new URL(document.location).searchParams;
+// Loop through the expected quantity parameters and update the quantity array
+for (let i = 0; i < itemData.length; i++) {
+    let quantityValue = params.get(`quantity${i}`);
+    if (quantityValue !== null) {
+        quantity[itemData[i].quantityIndex] = parseInt(quantityValue, 10);
+    }
+}
+
+
 //initialize variables for subtotal, tax, shipping charge, and total
 let subtotal=0;
 let taxRate = 0.0575; // 5.75%
