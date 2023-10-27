@@ -11,6 +11,15 @@ app.all('*', function (request, response, next) {
     next();
 });
 
+let products = require(__dirname + '/products.json');
+products.forEach( (prod,i) => {prod.total_sold = 0});
+
+app.get("/products.js", function (request, response, next) {
+   response.type('.js');
+   var products_str = `var products = ${JSON.stringify(products)};`;
+   response.send(products_str);
+});
+
 app.use(express.urlencoded({ extended: true }));
 
 //part 3a 
@@ -26,15 +35,25 @@ app.post("/process_form", function (request, response) {
  });
 */
  app.post("/process_form", function (request, response) {
+    let brand = products[0]['brand'];
+    let brand_price = products[0]['price'];
+    let total_sold = products[0]['total_sold'];
+
     let q = parseInt(request.body['qty_textbox']);
     console.log("the input value is:"+q);
+    
+    
+    
     var validationMessage = validateQuantity(q);
     
     if (validationMessage === "") {
-        response.send(`Thank you for purchasing ${q} things!`);
+        total_sold += parseInt(q);
+        response.send(`<h2>Thank you for purchasing ${q} ${brand}. There have been ${total_sold} of those sold. Your total is \$${q * brand_price}!</h2>`);
     } else {
         response.send(validationMessage);
     }
+
+    
 });
 
 function validateQuantity(quantity) {
