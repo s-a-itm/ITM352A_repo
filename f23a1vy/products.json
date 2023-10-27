@@ -1,0 +1,44 @@
+[
+    {
+        "name": "HunterxHunter",
+        "price": 200,
+        "image": "./images/HxHFront.jpg",
+        "alt": "HunterxHunter shoes image",
+        "qty_available": 10
+    },
+    {
+        "name": "Fullmetal Alchemist: Brotherhood",
+        "price": 350,
+        "image": "./images/FMAB.jpg",
+        "alt": "Fullmetal Alchemist Brotherhood shoes image",
+        "qty_available": 8
+    },
+    {
+        "name": "Jujutsu Kaisen",
+        "price": 350,
+        "image": "./images/JJK.jpg",
+        "alt": "Jujutsu Kaisen shoes image",
+        "qty_available": 5
+    },
+    {
+        "name": "Fairy Tail",
+        "price": 350,
+        "image": "./images/FairyTail.jpg",
+        "alt": "Fairy Tail shoes image",
+        "qty_available": 3
+    },
+    {
+        "name": "Star Wars",
+        "price": 400,
+        "image": "./images/StarWars.jpg",
+        "alt": "Star Wars shoes image",
+        "qty_available": 4
+    },
+    {
+        "name": "Studio Ghibli",
+        "price": 1000,
+        "image": "./images/GhibliFront.jpg",
+        "alt": "Studio Ghibli shoes image",
+        "qty_available": 1
+    }
+]
