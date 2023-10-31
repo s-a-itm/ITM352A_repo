@@ -39,7 +39,7 @@ app.post("/process_form", function (request, response) {
         //response.send(validationMessage+'<br>'+`Error: ${q} is not a quantity. Hit the back button to fix.`);
         //response.redirect('receipt.html?quantity=' + q);//part 5 redirect
         // Redirect back to order.html with the error in the query string
-        response.redirect(`order.html?error=Invalid%20Quantity&qty_textbox=${q}`); // final part of part 5
+        response.redirect(`order.html?error=${validationMessage}&qty_textbox=${q}`); // final part of part 5
     }
 });
 

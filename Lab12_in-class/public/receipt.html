@@ -17,7 +17,7 @@
         if (validationMessage === "") {
             document.write(`<h2>Thank you for purchasing ${q} ${brand}. Your total is \$${q * brand_price}!</h2>`);
         } else {
-            document.write(validationMessage + '<br>' + `Error: ${q} is not a valid quantity. Go back and fix.`);
+            alert(validationMessage + '<br>' + `Error: ${q} is not a valid quantity. Go back and fix.`);
         }
 
         function validateQuantity(quantity) {
