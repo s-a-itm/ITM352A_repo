@@ -4,6 +4,15 @@
 <head>
     <title>Order Page</title>
     <script src="./products.js"></script>
+    <script>
+        let params = (new URL(document.location)).searchParams;
+        let q = Number(params.get('quantity'));
+        let error = params.get('error');
+
+        if (error) {
+            alert(error);
+        }
+    </script>
 </head>
 <body>
     <script>
