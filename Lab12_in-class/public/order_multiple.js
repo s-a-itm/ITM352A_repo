@@ -1,8 +1,8 @@
 //order_multiple.js (Lab12 part 6)
+// Check the URL for any error parameters and and quantity and display/use them
 
-
-window.onload = function () {
-
+window.onload = function() {
+    
     // Check the URL for any error parameters and and quantity and display/use them
     let params = (new URL(document.location)).searchParams;
     let q = Number(params.get('quantity'));
@@ -12,11 +12,10 @@ window.onload = function () {
     if (error) {
         alert(error);
     }
-    //define a variable that points to the form on the DOM in order to dynamically populate the form
+    
     const form = document.getElementById('productForm');
-    let formHTML = '';//blank content of form to add to 
+    let formHTML = '';
 
-    //write a loop to print the product information AND then add a quantity text input box for every element of the product array
     for (let i in products) {
         formHTML += `<h3>${products[i]["brand"]} at \$${products[i]["price"]} (${products[i]["total_sold"]} sold)</h3>`;
         formHTML += `
@@ -25,18 +24,15 @@ window.onload = function () {
         <span id="quantity_textbox[${i}]_message">Enter a quantity</span><br>
     `; 
     }
-    //ensure the submit button is part of the form
     formHTML+= `<br> <input type="submit" value="Purchase">`;
-    //push the form content to the DOM
     form.innerHTML=formHTML;
 }
-//add the checkQuantityTextbox() 
+
 function checkQuantityTextbox(theTextbox) {
     let errs = validateQuantity(theTextbox.value, true);
-    document.getElementById(theTextbox.name + '_message').innerHTML = errs;
+    document.getElementById(theTextbox.name + '_message').innerHTML = errs.join(", ");
 }
 
-//add the validateQuantity()
 function validateQuantity(quantity) {
     let errorMessage = "";
 
@@ -60,5 +56,3 @@ function validateQuantity(quantity) {
 
     return errorMessage;
 }
-    
-

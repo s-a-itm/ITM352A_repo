@@ -41,7 +41,6 @@ app.post("/process_form", function (request, response) {
     }
     response.send(receipt);
     response.end();
-
 });
 
 app.all('*', function (request, response, next) {
