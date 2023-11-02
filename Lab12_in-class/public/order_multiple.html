@@ -15,28 +15,48 @@
         if (error) {
             document.write(`<div style="color:red; border:1px solid red; padding: 10px; margin-bottom: 10px;">${error}</div>`);
         }
-
-        document.write(`<h3>${products[0]["brand"]} at \$${products[0]["price"]}</h3>`);
     </script>
 </head>
 <body>
-    <script>
-        document.write(`<h3>${products[0]["brand"]} at \$${products[0]["price"]}</h3>`);
-    </script>
    <form name='quantity_form' action="process_form" method="POST">
     <script>
         for (i in products) {
             document.write(`<h3>${products[i]["brand"]} at \$${products[i]["price"]} (${products[i]["total_sold"]} sold)</h3>`);
             document.write(`
-    <label for="quantity_textbox">quantity desired:</label>
-    <input type="text" name="quantity_textbox[${i}]" onkeyup="checkQuantityTextbox(this);">
-    <span id="quantity_textbox[${i}]_message">Enter a quantity</span>
-    `);
+            <label for="quantity_textbox">quantity desired:</label>
+            <input type="text" name="quantity_textbox[${i}]" onkeyup="checkQuantityTextbox(this);">
+            <span id="quantity_textbox[${i}]_message">Enter a quantity</span>
+            `);
         }
-    function checkQuantityTextbox(theTextbox) {
-        errs = validateQuantity(theTextbox.value, true);
-        document.getElementById(theTextbox.name + '_message').innerHTML = errs.join(", ");
-    }
+
+        function checkQuantityTextbox(theTextbox) {
+            errs = validateQuantity(theTextbox.value);
+            document.getElementById(theTextbox.name + '_message').innerHTML = errs.join(", ");
+        }
+        
+        function validateQuantity(quantity) {
+            let errorMessage = "";
+        
+            switch (true) {
+                case isNaN(quantity):
+                    errorMessage = "Not a number. Please enter a non-negative quantity to order.";
+                    break;
+                case quantity < 0 && !Number.isInteger(quantity):
+                    errorMessage = "Negative inventory and not an Integer. Please enter a non-negative quantity to order.";
+                    break;
+                case quantity < 0:
+                    errorMessage = "Negative inventory. Please enter a non-negative quantity to order.";
+                    break;
+                case !Number.isInteger(quantity):
+                    errorMessage = "Not an Integer. Please enter a non-negative quantity to order.";
+                    break;
+                default:
+                    errorMessage = ""; // No errors
+                    break;
+            }
+        
+            return errorMessage;
+        }
     </script>
     <br>
     <input type="submit" value='Purchase'>
