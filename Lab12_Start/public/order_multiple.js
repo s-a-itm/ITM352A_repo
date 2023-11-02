@@ -24,6 +24,7 @@ window.onload = function() {
         <span id="quantity_textbox[${i}]_message">Enter a quantity</span><br>
     `; 
     }
+    formHTML+= `<br> <input type="submit" value="Purchase">`;
     form.innerHTML=formHTML;
 }
 
