@@ -43,18 +43,30 @@ let app = express();
 
 app.use(express.urlencoded({ extended: true }));
 
+// modified for extra credit 2 to push error message with login prompts
 app.get("/login", function (request, response) {
     // Give a simple login form
-    login_form = `
+    str = `
+        <script>
+            let params = (new URL(document.location)).searchParams;
+            window.onload = function() {
+                if (params.has('error')) {
+                    login_form['username'].value = params.get('username');
+                    document.getElementById("errMsg").innerHTML = params.get("error");
+                }
+            }
+        </script>
+
         <body>
-        <form action="" method="POST">
+        <div id="errMsg"></div>
+        <form action="" method="POST" name="login_form">
         <input type="text" name="username" size="40" placeholder="enter username" ><br />
         <input type="password" name="password" size="40" placeholder="enter password"><br />
         <input type="submit" value="Submit" id="submit">
         </form>
         </body>
-        `;
-    response.send(login_form);
+    `;
+    response.send(str);
 });
 
 app.post("/login", function (request, response) {
@@ -90,11 +102,24 @@ app.post("/login", function (request, response) {
 
 app.listen(8080, () => console.log(`listening on port 8080`));
 
+//extra credit 1 first option to send userid in URL back with username if there is an error on registration
 app.get("/register", function (request, response) {
     // Give a simple register form
     str = `
+        <script>
+            let params = (new URL(document.location)).searchParams;
+            window.onload = function() {
+                if (params.has('error)) {
+                    reg_form['username'].value = params.get('username');
+                    reg_form['email'].value = params.get('email');
+                    reg_form['name'].value = params.get('name');
+                }
+            }
+        </script>
+
         <body>
-        <form action="" method="POST">
+
+        <form action="" method="POST" name="reg_form">
         <input type="text" name="username" size="40" placeholder="enter username" ><br />
         <input type="password" name="password" size="40" placeholder="enter password"><br />
         <input type="password" name="repeat_password" size="40" placeholder="enter password again"><br />
@@ -104,12 +129,23 @@ app.get("/register", function (request, response) {
         </body>
     `;
     response.send(str);
- });
+});
 
  app.post("/register", function (request, response) {
     // process a simple register form
     let new_user = request.body.username;
-    
+    let errors = false;
+    let resp_msg = "";
+
+    let params = new URLSearchParams(request.body);
+
+    // If the username already exists
+    if (typeof user_reg_data[new_user] != 'undefined') {
+        resp_msg = 'Username unavailable. Please enter a different username.';
+        errors = true;
+    } 
+    // If the username does not exist and the password and repeat password matches
+    else if (request.body.password == request.body.repeat_password) {
         user_reg_data[new_user] = {};
         user_reg_data[new_user].name = request.body.name;
         user_reg_data[new_user].password = request.body.password;
@@ -117,5 +153,16 @@ app.get("/register", function (request, response) {
 
         fs.writeFileSync(filename, JSON.stringify(user_reg_data), 'utf-8');
         response.redirect(`./login`);
+    } else {
+        resp_msg = 'Repeat password does not match with password.'
+        errors = true;
+    }
+
+    if (errors) {
+        response.redirect(`./register?error=${resp_msg}&${params.toString()}`);
+        //response.send(resp_msg);
+        // Alternatively, you can redirect to the register page with an error query parameter:
+        // response.redirect(`./register?error=${resp_msg}&${params.toString()}`);
+    }
     
  });

@@ -43,17 +43,18 @@ let app = express();
 
 app.use(express.urlencoded({ extended: true }));
 
+//modified for extra credit #1, second option
 app.get("/login", function (request, response) {
-    // Give a simple login form
-    login_form = `
+        let username = request.query.username || ''; // Default to an empty string if not provided
+    let login_form = `
         <body>
         <form action="" method="POST">
-        <input type="text" name="username" size="40" placeholder="enter username" ><br />
+        <input type="text" name="username" size="40" placeholder="enter username" value="${username}"><br />
         <input type="password" name="password" size="40" placeholder="enter password"><br />
         <input type="submit" value="Submit" id="submit">
         </form>
         </body>
-        `;
+    `;
     response.send(login_form);
 });
 
@@ -83,7 +84,7 @@ app.post("/login", function (request, response) {
     if (!errors) {
         response.send(response_msg);
     } else {
-        response.redirect(`./login?error=${response_msg}`)
+        response.redirect(`./login?username=${encodeURIComponent(request.body['username'])}`);
     }
 
 });
@@ -109,13 +110,36 @@ app.get("/register", function (request, response) {
  app.post("/register", function (request, response) {
     // process a simple register form
     let new_user = request.body.username;
-    
+    let errors = false;
+    let resp_msg = "";
+
+    //let params = new URLSearchParams(request.body);
+
+    // If the username already exists
+    if (typeof user_reg_data[new_user] != 'undefined') {
+        resp_msg = 'Username unavailable. Please enter a different username.';
+        errors = true;
+    } 
+    // If the username does not exist and the password and repeat password matches
+    else if (request.body.password == request.body.repeat_password) {
         user_reg_data[new_user] = {};
         user_reg_data[new_user].name = request.body.name;
         user_reg_data[new_user].password = request.body.password;
         user_reg_data[new_user].email = request.body.email;
 
         fs.writeFileSync(filename, JSON.stringify(user_reg_data), 'utf-8');
-        response.redirect(`./login`);
+
+            //updated for extracredit 1, 2nd option, which sends the username in the redirect back to login after successful registration
+            response.redirect(`./login?username=${encodeURIComponent(request.body['username'])}`);
+    } else {
+        resp_msg = 'Repeat password does not match with password.'
+        errors = true;
+    }
+
+    if (errors) {
+        response.send(resp_msg);
+        // Alternatively, you can redirect to the register page with an error query parameter:
+        // response.redirect(`./register?error=${resp_msg}&${params.toString()}`);
+    }
     
  });

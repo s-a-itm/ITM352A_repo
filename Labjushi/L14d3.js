@@ -109,7 +109,18 @@ app.get("/register", function (request, response) {
  app.post("/register", function (request, response) {
     // process a simple register form
     let new_user = request.body.username;
-    
+    let errors = false;
+    let resp_msg = "";
+
+    //let params = new URLSearchParams(request.body);
+
+    // If the username already exists
+    if (typeof user_reg_data[new_user] != 'undefined') {
+        resp_msg = 'Username unavailable. Please enter a different username.';
+        errors = true;
+    } 
+    // If the username does not exist and the password and repeat password matches
+    else if (request.body.password == request.body.repeat_password) {
         user_reg_data[new_user] = {};
         user_reg_data[new_user].name = request.body.name;
         user_reg_data[new_user].password = request.body.password;
@@ -117,5 +128,15 @@ app.get("/register", function (request, response) {
 
         fs.writeFileSync(filename, JSON.stringify(user_reg_data), 'utf-8');
         response.redirect(`./login`);
+    } else {
+        resp_msg = 'Repeat password does not match with password.'
+        errors = true;
+    }
+
+    if (errors) {
+        response.send(resp_msg);
+        // Alternatively, you can redirect to the register page with an error query parameter:
+        // response.redirect(`./register?error=${resp_msg}&${params.toString()}`);
+    }
     
  });
