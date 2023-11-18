@@ -78,6 +78,8 @@ app.post("/login", function (request, response) {
     let response_msg = "";
     let errors = false;
 
+    let params = new URLSearchParams(request.body);
+
     // Check if the username exists in user_reg_data
     if (typeof user_reg_data[username_entered] != 'undefined') {
         // Check if the password matches with the username
@@ -95,7 +97,7 @@ app.post("/login", function (request, response) {
     if (!errors) {
         response.send(response_msg);
     } else {
-        response.redirect(`./login?error=${response_msg}`)
+        response.redirect(`./login?error=${response_msg}&${params.toString()}`)
     }
 
 });
