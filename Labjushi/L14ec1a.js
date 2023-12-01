@@ -45,11 +45,19 @@ app.use(express.urlencoded({ extended: true }));
 
 //modified for extra credit #1, second option
 app.get("/login", function (request, response) {
-        let username = request.query.username || ''; // Default to an empty string if not provided
+    
     let login_form = `
         <body>
+        <script>
+            let user = request.query.username || ''; // Default to an empty string if not provided
+            let params = new URLSearchParams(request.body);
+            if (params.has('error')) {
+                document.getElementById("errMsg").innerHTML = params.get("error");
+            }
+        </script>
+        <div id="errMsg"></div>
         <form action="" method="POST">
-        <input type="text" name="username" size="40" placeholder="enter username" value="${username}"><br />
+        <input type="text" name="username" size="40" placeholder="enter username" value="${user}"><br />
         <input type="password" name="password" size="40" placeholder="enter password"><br />
         <input type="submit" value="Submit" id="submit">
         </form>
@@ -84,7 +92,7 @@ app.post("/login", function (request, response) {
     if (!errors) {
         response.send(response_msg);
     } else {
-        response.redirect(`./login?username=${encodeURIComponent(request.body['username'])}`);
+        response.redirect(`./login?error=${response_msg}&username=${encodeURIComponent(request.body['username'])}`);
     }
 
 });
